@@ -4,9 +4,11 @@ Created on Fri Feb 18 16:37:56 2022
 
 @author: dtket
 """
-#import pysal
-import numpy as np      # if using numpy in cpython
+import scipy.linalg as la
+import numpy as np
+import networkx as nx
 import matplotlib.pyplot as plt
+
 def Hypercube(M,iters):
     for i in range(iters):
         if (i > 0):
