@@ -31,6 +31,18 @@ def Simplex(M,iters):
         FINAL  = np.concatenate((temp,BOTTOM),axis=0)
     
     return FINAL
+def MakeGrid(n):
+   N = np.zeros([n,1])
+   N[1]=1    
+   offdi = la.toeplitz(N)
+   I = np.eye(n)
+   A = np.kron(offdi,I) + np.kron(I,offdi)
+   return A
+def MakeLine(n):
+   N = np.zeros([n,1])
+   N[1]=1    
+   offdi = la.toeplitz(N)
+   return offdi
 
 def Normer(M):
     norms = np.linalg.norm(M,ord=1, axis=0)
@@ -70,6 +82,12 @@ FourCube= Hypercube(Cube,1)
 #plt.show()
 
 
+A= MakeGrid(3)
+#plt.matshow(A)
+#plt.show()
+B=nx.DiGraph(A)
+nx.draw(B)
+CalculateAbsorptionTimes(A,0)
 
 a1 = max(max(CalculateAbsorptionTimes(Line,0)))
 a2 = max(max(CalculateAbsorptionTimes(Square,0)))
@@ -85,9 +103,6 @@ a9 = max(max(CalculateAbsorptionTimes(FourCube,0)))
 MaxAbs=[a1,a2,a3,a4,a5,a6,a7,a8,a9]
 
 print(MaxAbs)
-#
-#w = pysal.lat2W(3,3)
-#w.full()[0]
 
 #Shapes=[Line,Square,Triangle,SqPyr,TriPrism,Cube,Tetrahed,FourCell,FourCube]
 #for shape in Shapes:
