@@ -17,13 +17,20 @@ How many 3-dimensional components exist in the figure resulting from the operati
 import sympy as sp
 x, y = sp.symbols('x y')
 point = 1
+
+
+# When applied to an expression w, it simulates the hypercube operation by multiplying w by (y + 2).
+# This corresponds to "doubling" the figure along a new orthogonal axis. The multiplication by 2 represents the copy in the new dimension,
+# the multiplication by y represents the structure in between the 2 copies.
 def H(w):
     return (y + 2) * w
+# When applied to an expression w, it simulates the simplex operation by transforming w into (x + 1)*w + 1.
+# The added "+1" corresponds to adding a new vertex, and (x+1) scales the existing structure. The multiplication by 1 represents the original unchanged copy,
+# the multiplication by x represents the structure in between the new vertex and the original structure.
 def S(w):
     return (x + 1) * w + 1
+    
 expr = sp.expand(S(S(S(S(S  (H(H(H(H  (S  (H(H(point))))))))))))) # 2, 1, 4, 5
-# print(expr2)
-# print(expr3)
 print(expr)
 poly = sp.Poly(expr, x, y)
 monomials = poly.monoms()
